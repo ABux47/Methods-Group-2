@@ -1,3 +1,115 @@
+
+def menu1():
+    print("Welcome")
+    print("1.Login")
+    print("2.Create Account")
+    print("3.Exit")
+
+
+def itemsMenu(accnt):
+    sortList = []
+    print("1.Horror")
+    print("2.Historical Fiction")
+    print("3.Mystery")
+    print("4.Nonfiction")
+    input1 = input()
+    count = 1
+    if input1 == "1":
+        for x in inventory:
+            if x.getGenre() == "Horror":
+                print(str(count) + ".")
+                x.display()
+                sortList.append(x)
+                count+=1
+    
+    elif input1 == "2":
+        for r in inventory:
+            if r.getGenre() == "Historical Fiction":
+                print(str(count) + ".")
+                r.display()
+                sortList.append(r)
+                count+=1
+
+    elif input1 == "3":
+        for y in inventory:
+            if y.getGenre() == "Mystery":
+                print(str(count) + ".")
+                y.display()
+                sortList.append(y)
+                count+=1
+
+    elif input1 == "4":
+        for z in inventory:
+            if z.getGenre() == "Nonfiction":
+                print(str(count) + ".")
+                z.display()
+                sortList.append(z)
+                count+=1
+    
+    else: 
+        print("Invalid Input")
+        return
+    
+
+def cartMenu(accnt):
+    loop = True
+    while loop:
+        print("1.View Items in a Genre")
+        print("2.View cart")
+        print("3.Remove an item from cart")
+        print("4.Back")
+        input1 = input()
+        if input1 == "1":
+            itemsMenu(accnt)
+        elif input1 == "2":
+            print("hello")
+        elif input1 == "3":
+            # add stuff
+            print("Hello")
+        elif input1 == "4":
+            loop = False
+        else: 
+            print("Incorrect Input")
+
+
+def menuAccount(accnt):
+    print("1.View Account Information")
+    print("2.Edit User Information")
+    print("3.View Orders")
+    print("4.Edit Cart")
+    print("5.Delete Account")
+    print("6.Logout")
+    input1 = input()
+
+    if input1 == "1":
+        #display user infornation
+        accnt.displayInfo()
+
+    elif input1 == "2":
+        print("1.Address")
+        print("2.Payment")
+        input2 = input("What would you like to change?")
+        if input2 == "1":
+            input3 = input("Enter the new address:")
+            accnt.setAddress(input3)
+        elif input2 == "2":
+            input4 = input("Enter the new payment:")
+            accnt.setPayment(input4)
+
+    elif input1 == "3":
+        accnt.displayOrders()
+
+    elif input1 == "4":
+        cartMenu(accnt)
+    elif input1 == "5":
+        print("Removing account")
+        return 5
+    elif input1 == "6":
+        return 6
+    else:
+        print("Incorrect Input")
+        return 0
+
 #main method
 # This program assumes that the inventory file is already filled. There are no methods to add a new stock item.
 # We chose to do this because there was no requirement in the 
