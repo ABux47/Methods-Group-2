@@ -2,6 +2,7 @@ from Item import Item
 class Cart:
     def __init__(self):
         self.itemList = {}
+        self.total= 0
 
     def ViewItems(self):
         print("Items in stock: ")
@@ -16,13 +17,13 @@ class Cart:
                 print("Quantity chosen is greater than what's in stock")
             else:
                 self.itemList[item] = quantity
-        totalCost = 0
+        self.total=0
         for item in self.itemList:
             quantity = self.itemList[item]
             cost = quantity * item.price
             print("Title: " + item.name + " Quantity: " + str(quantity) + " Cost: " + '{0:.2f}'.format(cost))
-            totalCost += cost
-        print("Your current total is $" + '{0:.2f}'.format(totalCost) + '\n')
+            self.total += cost
+        print("Your current total is $" + '{0:.2f}'.format(self.total) + '\n')
 
     def DeleteItem(self, item, quantity):
         if quantity <= 0:
@@ -35,17 +36,18 @@ class Cart:
                     self.itemList.pop(item, None)
     
     def PlaceOrder(self):
-        totalCost = 0
+        self.total = 0
         for item in self.itemList:
             quantity = self.itemList[item]
             cost = quantity * item.price
             print("Title: " + item.name + " Quantity: " + str(quantity) + " Cost: " + '{0:.2f}'.format(cost))
-            totalCost += cost
+            self.total += cost
             item.quantity -= quantity
-        print("Grand total for this order is $" + '{0:.2f}'.format(totalCost) + '\n')
+        print("Grand total for this order is $" + '{0:.2f}'.format(self.total) + '\n')
 
     def AddDuplicateItem(self, item, quantity):
         if quantity > 0:
             self.itemList[item] = quantity
         else:
             self.DeleteItem(item)
+
