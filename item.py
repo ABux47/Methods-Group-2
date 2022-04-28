@@ -1,22 +1,3 @@
-ISBN = int()
-Title = str()
-Author =str()
-Genre = str  ()
-Year=int ()
-Stock=int()
-Price= int()
-quanity= int(50)
-itemsold=int()
-history = str()
-horror = str()
-fantasy = str()
-mystery = str ()
-wellness =str()
-novel=str()
-manga=str()
-Genre = tuple(history, horror, fantasy, mystery, wellness, novel, manga )
-book = tuple(ISBN,Title, Author,Genre, Year, Stock)
-
 
 library = dict(
     
@@ -30,27 +11,56 @@ library = dict(
 
 )
 
-
 class Item():
-    def viewCategory(Genre, Author, Title):
-        if (Genre) : 
+
+     def viewCategory(Genre, Author, Title):
+      history = str()
+      horror = str()
+      fantasy = str()
+      mystery = str ()
+      wellness =str()
+      novel=str()
+      manga=str()
+      Genre= tuple(str(history,horror, fantasy, mystery, wellness, novel, manga))
+      Author = str()
+      Title=str()
+      
+      input ( "Please search a Title, Author, or Genre : ")
+      
+      if (Genre): 
             input("what is the Genre of the book you are looking for ?:")
             print(library["Genre", "Title"])
-        
-        elif (Author):
+      
+      elif (Author):
              input("who is the author you are looking for ?")
              print(library["Author","Title"])
-        
-        elif (Title):
+     
+      elif (Title):
              input(" what is the title of the book you are looking for ?")
              print(library["Title"])
 
    
-    def decreaseStock(int):
-        for i in range (quanity):
-            stock = print(" number of items in stock",(i-1), end = ":")
+def decreaseStock(int):
+     Stock=int()
+     Price= int()
+     quanity= int(50)
+     itemsold=int()
+    
+     for i in range (quanity):
+         stock = print(" number of items in stock",(i-1), end = ":")
 
     
-    def book(self):
-       return book(ISBN, Title, Author,Genre, Year, Stock , Price). format(self.ISBN, self.Title,self.Author, self.Genre, self. Year, self.Stock, self.Price)
-    ()
+def book(self):
+      ISBN = int()
+      Title= str()
+      Author=str()
+      Genre=str()
+      Year=int()
+      Stock=int()
+      Price=float()
+      
+      book = tuple(ISBN,Title, Author,Genre, Year, Stock)
+      
+      return book(ISBN, Title, Author,Genre, Year, Stock , Price). format(self.ISBN, self.Title,self.Author, self.Genre, self. Year, self.Stock, self.Price)
+()
+
