@@ -1,5 +1,4 @@
 from asyncio.windows_events import NULL
-from numpy import logical_not
 
 #account class
 class Account:
@@ -12,14 +11,15 @@ class Account:
         self.lname = ""
         self.address = ""
         self.payment = ""
-        self.cart = ""
+        self.cart = Cart()
         self.orders = []
-        self.numOfOrders = ""
+        self.numOfOrders = 0
 
-    #Create a file of user account information that will only reference number of orders.
+
+        #Create a file of user account information that will only reference number of orders.
      
     def getFromFile(self):
-        filename = self.lname + ".txt"
+        filename = self.fname + self.lname + ".txt"
         file = open( filename, "r")
         self.username = file.readline()
         self.username.replace('\n', '')
@@ -33,28 +33,11 @@ class Account:
         self.address.replace('\n', '')
         self.payment = file.readline()
         self.payment.replace('\n', '')
-        self.cart = file.readline()
-        self.cart.replace('\n', '')
         self.numOfOrders = file.readline()
         self.numOfOrders.replace('\n', '')
 
+    #Functions Setters/Getters
 
-    # Login 
-
-    def setLogin(self, username, password):
-        self.username = username
-        self.password = password
-
-    def getLogin(self):
-        return self.password, self.username
-
-    # Logout 
-
-    def Logout(self):
-        self.username = NULL
-        self.password = NULL
-        print ("You have been succeffully logged out.")
-        return self.password, self.username
 
     # EditName
     def setFName(self, fname):
@@ -71,50 +54,20 @@ class Account:
 
     # Edit Username/Password
 
-    def setUsername(self, username):
-        self.username = username
-
-    def getUsername(self):
-        return self.username
-
     def setPassword(self, password):
         self.password = password
         
     def getPassword(self):
         return self.password
 
-    
+    def setUsername(self, username):
+        self.username = username
 
-    # AddPastOrder?
+    def getUsername(self):
+        return self.username
 
-    def retreiveOrders(self):
-        for r in range(self.numOfOrders):
-            newOrder = Order()
-            newOrder.getFromFile()
-            self.orders.append(newOrder)
-
-    def displayOrders(self):
-        for x in self.orders:
-            x.displayOrder()
-
-
-    # EditAddress
-
-    def setAddress(self, address):
-        self.address = address
-
-    def getAdress(self):
-        return self.address
-
-    # EditPayment
-
-    def setPayment(self, payment):
-        self.payment = payment
-
-    def getPayment(self):
-        return self.payment
-    
-    #Display 
+    def getFileName(self):
+        return self.fname + self.lname
 
     def displayInfo(self):
         print("Username: " + self.username, end='')
@@ -125,33 +78,76 @@ class Account:
         print("Payment: " + self.payment, end='')
         print("Number of Orders: " + self.numOfOrders, end='')
 
-    # DeleteAccount
+    # Order Functions
 
-    def deleteAccount(self):
-        del (self.username)
-        del (self.password)
-        del (self.name)
-        del (self.orders)
-        del (self.numOfOrders)
-        del (self.address)
-        del (self.payment)
-        del (self.cart)
-        del(self.orders)
+    
+    def retreiveOrders(self):
+        if self.numOfOrders == 0:
+            return
+        for r in range(self.numOfOrders):
+            newOrder = Order()
+            newOrder.getFromFile()
+            self.orders.append(newOrder)
 
-    #need to clear the file before exporting
+    def displayOrders(self):
+        for x in self.orders:
+            x.displayOrder()
+
+    def cartToOrder(self):
+        self.numOfOrders= self.numOfOrders + 1
+        newOrder = Order()
+        newOrder.addOrder(self.cart.getNumItems(), self.fname + self.lname, self.cart.getTotal(), self.cart.getItems(), self.cart.getQuanList())
+        newOrder.setAddress(self.address)
+        newOrder.setPayment(self.payment)
+
+    def ordersToFile(self):
+        filename= self.fname + self.lname + "Orders.txt"
+        open(filename, "w")
+        for x in self.orders:
+            x.export()
+    
+    # EditAddress
+
+    def setAddress(self, address):
+        self.address = address
+        address =  input("Enter you address: ")
+
+    def getAdress(self):
+        return self.address
+
+    # EditPayment
+
+    def setPayment(self, payment):
+        self.payment = payment
+        payment =  input("Enter you payment info: ")
+
+    def getPayment(self):
+        return self.payment
+
+        #need to clear the file before exporting
     def export(self):
-        filename = self.lname + ".txt"
-        file = open(filename, "a")
+        filename = self.fname + self.lname + ".txt"
+        file = open(filename, "w")
         file.write(self.username + "\n")
         file.write(self.password + "\n")
         file.write(self.fname + "\n")
         file.write(self.lname + "\n")
         file.write(self.address + "\n")
         file.write(self.payment + "\n")
-        file.write(self.cart + "\n")
         file.write(self.numOfOrders + "\n")
         file.write(self.address + "\n")
         file.write(self.payment + "\n")
 
-#main driver code
+    # DeleteAccount
 
+    def deleteAccount(self):
+        del (self.username)
+        del (self.password)
+        del (self.fname)
+        del (self.lname)
+        del (self.orders)
+        del (self.numOfOrders)
+        del (self.address)
+        del (self.payment)
+        del (self.cart)
+        del(self.orders)
