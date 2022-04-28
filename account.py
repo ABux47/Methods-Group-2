@@ -113,6 +113,17 @@ class Account:
 
     def getPayment(self):
         return self.payment
+    
+    #Display 
+
+    def displayInfo(self):
+        print("Username: " + self.username, end='')
+        print("Password: " + self.password, end='')
+        print("First Name: " + self.fname, end='')
+        print("Last Name: " + self.lname, end='')
+        print("Address: " + self.address, end='')
+        print("Payment: " + self.payment, end='')
+        print("Number of Orders: " + self.numOfOrders, end='')
 
     # DeleteAccount
 
