@@ -13,12 +13,6 @@ class Cart:
         self.item = stock
         if stock > 0:
             if item in self.itemList:
-                task = input("That item already exists in the cart! Would you like to add more? (Y/N): ")
-                if task == "Y":
-                    more = int(input("How many more would you like to add? "))
-                    self.itemList[item] = stock + more
-                else:
-                    return None
                 self.itemList[item] = stock
             elif stock > Item.getStock(item):
                 print("Quantity chosen is greater than what's in stock")
@@ -56,3 +50,18 @@ class Cart:
             totalCost += cost
             Item.decreaseStock(item,tmp)
         print("Grand total for this order is $" + '{0:.2f}'.format(totalCost) + '\n')
+
+    def AddDuplicateItem(self, item, stock=1):
+        if item in self.itemList:
+            task = input("That item already exists in the cart! Would you like to add more? (Y/N): ")
+            while(1):
+                if task == "Y":
+                    more = int(input("How many more would you like to add? "))
+                    if stock + more < Item.getStock(item):
+                        print("Successfully added " + str(more) + " book(s)")
+                        self.itemList[item] = self.itemList[item] + more
+                        break
+                    else:
+                        print("\nError: you have tried to add too many books, try again")
+                else:
+                    return None
