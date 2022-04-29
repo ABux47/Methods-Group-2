@@ -1,4 +1,4 @@
-
+        
 from pickle import TRUE
 from asyncio.windows_events import NULL
 import os
@@ -351,7 +351,10 @@ class Order:
         count = 0
 
         for x in self.items:
-            x.display()
+            if isinstance(x, Item):
+                x.display()
+            else:
+                print(x)
             print("Quantity: " + str(self.quanOfItems[count]))
             count= count+1
         
@@ -369,7 +372,7 @@ class Order:
         file.write(self.address + "\n")
         file.write(self.payment + "\n")
         for r in self.items:
-            file.write(r + "\n")
+            file.write(r.getTitle() + "\n")
 
         file.write("%\n")
 
@@ -630,3 +633,4 @@ while exit != 1:
         exit = 1
     else:
         print("Incorrect input")
+
