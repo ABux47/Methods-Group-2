@@ -1,4 +1,3 @@
-        
 from pickle import TRUE
 from asyncio.windows_events import NULL
 import os
@@ -111,11 +110,11 @@ class Cart:
         print("Your current total is $" + '{0:.2f}'.format(self.total) + '\n')
         
     def deleteItem(self, item):
-        if self.quanList[self.itemList.index(item)] <= 0:
+        if int(self.quanOfItems[self.itemList.index(item)]) <= 0:
             self.itemList.pop(item, None)
         else:
             if item in self.itemList:
-                self.quanOfItems[self.itemList.index(item)] -= 1
+                self.quanOfItems[self.itemList.index(item)] = int(self.quanOfItems[self.itemList.index(item)]) -1
                 print("The quantity of " + item.title + " has been decreased by " + str(1) + " leaving " + str(self.quanOfItems[self.itemList.index(item)]) + " book(s) of this title in the cart" )
 
     def viewCart(self):
@@ -178,6 +177,7 @@ class Account:
         newOrder.setAddress(self.address)
         newOrder.setPayment(self.payment)
         self.orders.append(newOrder)
+        self.numOfOrders = int(self.numOfOrders) + 1
 
     # EditName
     def setFName(self, fname):
@@ -349,7 +349,6 @@ class Order:
 
     def viewOrder(self):
         count = 0
-
         for x in self.items:
             if isinstance(x, Item):
                 x.display()
